@@ -1,19 +1,19 @@
 const knex = require('knex');
 
 class MyDatabase {
-    constructor(knexConfig) {
-        this.knex = knex(knexConfig);
-    }
+  constructor(knexConfig) {
+    this.knex = knex(knexConfig);
+  }
 
-//   getFruits() {
-//     this.knex
-//       .select("*")
-//       .from("fruit")
-//       .where({ id: 1 })
-//       .then((ret) => {
-//           console.log(ret);
-//       })
-//   }
+  // getFruits() {
+  //   this.knex
+  //     .select("*")
+  //     .from("fruit")
+  //     .where({ id: 1 })
+  //     .then((ret) => {
+  //       console.log(ret);
+  //     });
+  // }
 
   getLastTransaction() {
 

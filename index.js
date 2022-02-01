@@ -13,7 +13,7 @@ const knexConfig = {
 
 const db = new dbwrapper(knexConfig);
 
-
+db.getLastTransaction();
 
 
 
