@@ -1,38 +1,50 @@
-const express = require('express')
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
+const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
+const express = require('express');
+const http = require('http');
 
-const app = express()
-const port = 3000
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers')
+const DataBase = require('./database');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
-
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    hello: String
+const knexConfig = {
+  client: "mysql",
+  connection: {
+    host: '127.0.0.1',
+    port: 3306,
+    user: 'test',
+    password: 'password',
+    database: 'ecommerce'
   }
-`);
+}
 
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return 'Hello world!';
-  },
-};
+const db = new DataBase(knexConfig);
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
+async function startApolloServer(typeDefs, resolvers) {
+  // Required logic for integrating with Express
+  const app = express();
+  const httpServer = http.createServer(app);
 
-app.listen(4000);
-console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+  // Same ApolloServer initialization as before, plus the drain plugin.
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    dataSources: () => {
+      return {
+        database: db
+      };
+    }
+  });
+
+  await server.start();
+  server.applyMiddleware({
+    app,
+    path: '/',
+  });
+
+  await new Promise(resolve => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+}
+
+startApolloServer(typeDefs, resolvers);
