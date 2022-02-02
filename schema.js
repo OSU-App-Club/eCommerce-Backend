@@ -49,8 +49,8 @@ const typeDefs = gql`
         getItem(uid: String!): Item
     }
     type Mutation {
-        addTransaction(transaction: TransactionInput!): TranscationMutationResponse
-        addItem(item: ItemInput!): ItemMutationResponse
+        addTransaction(transaction: TransactionInput!): TranscationMutationResponse!
+        addItem(item: ItemInput!): ItemMutationResponse!
     }
 `;
 

@@ -12,29 +12,32 @@ class MyDatabase extends SQLDataSource {
     // }
 
     // item getters
-    getItem(uid) {
-        return this.knex
+    async getItem(uid) {
+        let items = await this.knex
             .select('*')
             .from('Items')
             .where({ UID: uid })
+        return items[0]
     }
 
     getItemWithName(name) {
         return
     }
 
-    getAllItems() {
-        return this.knex
+    async getAllItems() {
+        let items = this.knex
             .select('*')
             .from('Items')
+        return items
     }
 
     // database transaction getters
-    getTransaction(uid) {
-        return this.knex
+    async getTransaction(uid) {
+        let transactions = await this.knex
             .select('*')
             .from('Transactions')
             .where({ UID: uid })
+        return transactions[0]
     }
 
     getLastTransaction() {
@@ -45,31 +48,50 @@ class MyDatabase extends SQLDataSource {
         return
     }
 
-    getAllTransactions() {
-        return this.knex
+    async getAllTransactions() {
+        let transactions = await this.knex
             .select('*')
             .from('Transactions')
+        return transactions
     }
 
     // database transaction setters
     async addTransaction(transaction) {
-        await this.knex('Transactions')
-            .insert(transaction)
-        return {
-            success: true,
-            message: "Transaction added",
-            transaction: transaction
+        try {
+            await this.knex
+                .insert(transaction)
+                .into('Transactions')
+            return {
+                success: true,
+                message: "Transaction added",
+                transaction: transaction
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: error.toString(),
+                transaction: transaction
+            }
         }
     }
 
     // database item setters
     async addItem(item) {
-        await this.knex('Items')
-            .insert(item)
-        return {
-            success: true,
-            message: "Item added",
-            transaction: item
+        try {
+            await this.knex
+                .insert(item)
+                .into('Items')
+            return {
+                success: true,
+                message: "Item added",
+                item: item
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: error.toString(),
+                item: item
+            }
         }
     }
 }
