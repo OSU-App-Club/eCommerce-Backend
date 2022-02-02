@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { ApolloServer } = require('apollo-server-express');
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const express = require('express');
@@ -10,11 +12,11 @@ const MyDatabase = require('./db-wrapper');
 const knexConfig = {
   client: "mysql",
   connection: {
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'test',
-    password: 'password',
-    database: 'ecommerce'
+    host: process.env.MYSQL_HOST,
+    port: parseInt(process.env.MYSQL_PORT),
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
   }
 }
 
