@@ -5,7 +5,7 @@ const http = require('http');
 
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers')
-const DataBase = require('./database');
+const MyDatabase = require('./db-wrapper');
 
 const knexConfig = {
   client: "mysql",
@@ -18,7 +18,7 @@ const knexConfig = {
   }
 }
 
-const db = new DataBase(knexConfig);
+const db = new MyDatabase(knexConfig);
 
 async function startApolloServer(typeDefs, resolvers) {
   // Required logic for integrating with Express

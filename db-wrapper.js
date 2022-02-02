@@ -1,28 +1,57 @@
 const { SQLDataSource } = require("datasource-sql");
 
-class DataBase extends SQLDataSource {
-    getAllTransactions() {
-        return this.knex
-            .select('*')
-            .from('Transactions')
-    }
-    getAllItems() {
-        return this.knex
-            .select('*')
-            .from('Items')
-    }
-    getTransaction(uid) {
-        return this.knex
-            .select('*')
-            .from('Transactions')
-            .where({ UID: uid })
-    }
+class MyDatabase extends SQLDataSource {
+    // getFruits() {
+    //   this.knex
+    //     .select("*")
+    //     .from("fruit")
+    //     .where({ id: 1 })
+    //     .then((ret) => {
+    //       console.log(ret);
+    //     });
+    // }
+
+    // item getters
     getItem(uid) {
         return this.knex
             .select('*')
             .from('Items')
             .where({ UID: uid })
     }
+
+    getItemWithName(name) {
+        return
+    }
+
+    getAllItems() {
+        return this.knex
+            .select('*')
+            .from('Items')
+    }
+
+    // database transaction getters
+    getTransaction(uid) {
+        return this.knex
+            .select('*')
+            .from('Transactions')
+            .where({ UID: uid })
+    }
+
+    getLastTransaction() {
+        return
+    }
+
+    getTransactionBetween(initDate, endDate) {
+        return
+    }
+
+    getAllTransactions() {
+        return this.knex
+            .select('*')
+            .from('Transactions')
+    }
+
+    // database transaction setters
     async addTransaction(transaction) {
         await this.knex('Transactions')
             .insert(transaction)
@@ -32,6 +61,8 @@ class DataBase extends SQLDataSource {
             transaction: transaction
         }
     }
+
+    // database item setters
     async addItem(item) {
         await this.knex('Items')
             .insert(item)
@@ -43,4 +74,4 @@ class DataBase extends SQLDataSource {
     }
 }
 
-module.exports = DataBase;
+module.exports = MyDatabase;
