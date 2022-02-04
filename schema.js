@@ -15,6 +15,11 @@ const typeDefs = gql`
         UID: String!
     }
 
+    type TransactionItem {
+        TransactionID: String!
+        ItemID: String!
+    }
+
     # database objects for setters
     input TransactionInput {
         Shipping_Address: String!
@@ -28,6 +33,10 @@ const typeDefs = gql`
         Name: String!
         UID: String!
     }
+    input TransactionItemInput {
+        TransactionID: String!
+        ItemID: String!
+    }
 
     # mutation responses
     type TranscationMutationResponse {
@@ -40,11 +49,16 @@ const typeDefs = gql`
         message: String!
         item: Item!
     }
+    type TransactionItemMutationResponse {
+        success: Boolean!
+        message: String!
+    }
 
     # root types
     type Query {
         getAllTransactions: [Transaction]!
         getAllItems: [Item]!
+        getAllTransactionsItems: [TransactionItem]!
         getTransaction(uid: String!): Transaction
         getItem(uid: String!): Item
         getItemWithName(name: String!): [Item]
@@ -53,6 +67,7 @@ const typeDefs = gql`
     type Mutation {
         addTransaction(transaction: TransactionInput!): TranscationMutationResponse!
         addItem(item: ItemInput!): ItemMutationResponse!
+        addTransactionItem(transactionItem: TransactionItemInput!): TransactionItemMutationResponse!
     }
 `;
 

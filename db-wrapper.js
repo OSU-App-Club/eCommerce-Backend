@@ -64,6 +64,15 @@ class MyDatabase extends SQLDataSource {
         return transactions
     }
 
+    // database transactions_items getters
+
+    async getAllTransactionsItems() {
+        let transactionsItems = await this.knex
+            .select('*')
+            .from('Transactions_Items')
+        return transactionsItems
+    }
+
     // database transaction setters
     async addTransaction(transaction) {
         try {
@@ -102,6 +111,25 @@ class MyDatabase extends SQLDataSource {
                 item: item
             }
         }
+    }
+
+    // database transaction_item setters
+
+    async addTransactionItem(transactionItem) {
+        try {
+            await this.knex
+            .insert(transactionItem)
+            .into('Transactions_Items')
+            return {
+                success: true,
+                message: "Transaction item added",
+                }
+        } catch(error) {
+            return {
+                success: false,
+                message: error.toString()
+            }           
+        }       
     }
 }
 
