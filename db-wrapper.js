@@ -44,8 +44,13 @@ class MyDatabase extends SQLDataSource {
         return transactions[0]
     }
 
-    getLastTransaction() {
-        return
+    async getLastTransaction() {
+        let transactions = await this.knex
+            .select('*')
+            .from('Transactions')
+            .orderBy('UID', 'desc')
+            .limit(1)
+        return transactions[0]
     }
 
     getTransactionBetween(initDate, endDate) {
