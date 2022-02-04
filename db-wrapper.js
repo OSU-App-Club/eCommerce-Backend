@@ -20,8 +20,12 @@ class MyDatabase extends SQLDataSource {
         return items[0]
     }
 
-    getItemWithName(name) {
-        return
+    async getItemWithName(name) {
+        const item = await this.knex
+            .select('*')
+            .from('Items')
+            .where({ Name: name })
+        return item;
     }
 
     async getAllItems() {

@@ -47,6 +47,7 @@ const typeDefs = gql`
         getAllItems: [Item]!
         getTransaction(uid: String!): Transaction
         getItem(uid: String!): Item
+        getItemWithName(name: String!): Item
     }
     type Mutation {
         addTransaction(transaction: TransactionInput!): TranscationMutationResponse!
