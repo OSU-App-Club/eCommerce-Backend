@@ -17,6 +17,7 @@
     "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "graphql": "^15.8.0",
+    "graphql-type-decimal": "^1.0.0",
     "knex": "^1.0.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15"

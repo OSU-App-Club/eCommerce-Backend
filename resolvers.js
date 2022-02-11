@@ -1,4 +1,9 @@
+const GraphQLDecimal = require('graphql-type-decimal')
+
 const resolvers = {
+
+    Decimal: {GraphQLDecimal},
+
     Query: {
         getAllTransactions: (_, __, { dataSources }) => dataSources.database.getAllTransactions(),
         getAllItems: (_, __, { dataSources }) => dataSources.database.getAllItems(),
