@@ -8,6 +8,18 @@ const http = require('http');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers')
 const MyDatabase = require('./db-wrapper');
+const tunnel = require('tunnel-ssh')
+
+// const tunnelConfig = {
+//     username:'root',
+//     password:'secret',
+//     host:sshServer,
+//     port:22,
+//     dstHost:destinationServer,
+//     dstPort:27017,
+//     localHost:'127.0.0.1',
+//     localPort: 27000
+// }
 
 const knexConfig = {
   client: "mysql",

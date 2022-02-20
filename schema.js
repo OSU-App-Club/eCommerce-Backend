@@ -7,16 +7,21 @@ const typeDefs = gql`
 
     type Transaction {
         UID: Int!
-        Fname: String!
-        Lname: String!
+        Name: String!
         Shipping_Address: String!
-        Billing_Address: String!
+        Billing_Street: String!
+        Billing_City: String!
+        Billing_State: String!
+        Billing_Zip: String!
         Total_Cost: Decimal!
         Discounts: Decimal!
+        Payment_Method: String!
         Card_Num: String!
         Card_CVV: String!
         Card_Exp_Month: String!
         Card_Exp_Year: String!
+        Phone_Numb: String!
+        Email: String!
         
     }
     type Item {
@@ -33,16 +38,21 @@ const typeDefs = gql`
     # database objects for setters
     input TransactionInput {
         UID: Int
-        Fname: String!
-        Lname: String!
+        Name: String!
         Shipping_Address: String!
-        Billing_Address: String!
+        Billing_Street: String!
+        Billing_City: String!
+        Billing_State: String!
+        Billing_Zip: String!
         Total_Cost: Decimal!
         Discounts: Decimal!
+        Payment_Method: String!
         Card_Num: String!
         Card_CVV: String!
         Card_Exp_Month: String!
         Card_Exp_Year: String!
+        Phone_Numb: String!
+        Email: String!
     }
     input ItemInput {
         UID: Int
