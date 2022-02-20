@@ -10,17 +10,6 @@ const resolvers = require('./resolvers')
 const MyDatabase = require('./db-wrapper');
 const tunnel = require('tunnel-ssh')
 
-// const tunnelConfig = {
-//     username:'root',
-//     password:'secret',
-//     host:sshServer,
-//     port:22,
-//     dstHost:destinationServer,
-//     dstPort:27017,
-//     localHost:'127.0.0.1',
-//     localPort: 27000
-// }
-
 const knexConfig = {
   client: "mysql",
   connection: {
@@ -30,6 +19,20 @@ const knexConfig = {
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
   }
+}
+
+const tunnelConfig = {
+  host:process.env.SSH_HOST,
+  port:22,
+  username:process.env.SSH_USER,
+  privateKey:require('fs').readFileSync('./app-dev-ec2-backend.pem')
+}
+
+const forwardConfig = {
+  srcHost:'localhost',
+  srcPort:3306,
+  dstHost:knexConfig.host,
+  dstPort:knexConfig.port
 }
 
 const db = new MyDatabase(knexConfig);
