@@ -15,7 +15,7 @@ class MyDatabase extends SQLDataSource {
     async getItem(uid) {
         let items = await this.knex
             .select('*')
-            .from('Items')
+            .from('items')
             .where({ UID: uid })
         return items[0]
     }
@@ -23,7 +23,7 @@ class MyDatabase extends SQLDataSource {
     async getItemWithName(name) {
         const item = await this.knex
             .select('*')
-            .from('Items')
+            .from('items')
             .where({ Name: name })
         return item;
     }
@@ -31,7 +31,7 @@ class MyDatabase extends SQLDataSource {
     async getAllItems() {
         let items = this.knex
             .select('*')
-            .from('Items')
+            .from('items')
         return items
     }
 
@@ -39,7 +39,7 @@ class MyDatabase extends SQLDataSource {
     async getTransaction(uid) {
         let transactions = await this.knex
             .select('*')
-            .from('Transactions')
+            .from('transactions')
             .where({ UID: uid })
         return transactions[0]
     }
@@ -47,7 +47,7 @@ class MyDatabase extends SQLDataSource {
     async getLastTransaction() {
         let transactions = await this.knex
             .select('*')
-            .from('Transactions')
+            .from('transactions')
             .orderBy('UID', 'desc')
             .limit(1)
         return transactions[0]
@@ -60,7 +60,7 @@ class MyDatabase extends SQLDataSource {
     async getAllTransactions() {
         let transactions = await this.knex
             .select('*')
-            .from('Transactions')
+            .from('transactions')
         return transactions
     }
 
@@ -69,7 +69,7 @@ class MyDatabase extends SQLDataSource {
     async getAllTransactionsItems() {
         let transactionsItems = await this.knex
             .select('*')
-            .from('Transactions_Items')
+            .from('transactions_items')
         return transactionsItems
     }
 
@@ -78,7 +78,7 @@ class MyDatabase extends SQLDataSource {
         try {
             await this.knex
                 .insert(transaction)
-                .into('Transactions')
+                .into('transactions')
             return {
                 success: true,
                 message: "Transaction added",
@@ -98,7 +98,7 @@ class MyDatabase extends SQLDataSource {
         try {
             await this.knex
                 .insert(item)
-                .into('Items')
+                .into('items')
             return {
                 success: true,
                 message: "Item added",
@@ -119,7 +119,7 @@ class MyDatabase extends SQLDataSource {
         try {
             await this.knex
             .insert(transactionItem)
-            .into('Transactions_Items')
+            .into('transactions_items')
             return {
                 success: true,
                 message: "Transaction item added",

@@ -2,44 +2,70 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     # database objects for getters
+
+    scalar Decimal
+
     type Transaction {
+        UID: Int!
+        Name: String!
         Shipping_Address: String!
-        Billing_Address: String!
-        Payment_Info: String!
-        Total_Cost: String!
-        Discounts: String!
-        UID: String!
+        Billing_Street: String!
+        Billing_City: String!
+        Billing_State: String!
+        Billing_Zip: String!
+        Total_Cost: Decimal!
+        Discounts: Decimal!
+        Payment_Method: String!
+        Card_Num: String!
+        Card_CVV: String!
+        Card_Exp_Month: String!
+        Card_Exp_Year: String!
+        Phone_Numb: String!
+        Email: String!
+        
     }
     type Item {
+        UID: Int!
         Name: String!
-        UID: String!
+        Cost: Decimal!
     }
 
     type TransactionItem {
-        TransactionID: String!
-        ItemID: String!
+        TransactionID: Int!
+        ItemID: Int!
     }
 
     # database objects for setters
     input TransactionInput {
+        UID: Int
+        Name: String!
         Shipping_Address: String!
-        Billing_Address: String!
-        Payment_Info: String!
-        Total_Cost: String!
-        Discounts: String!
-        UID: String!
+        Billing_Street: String!
+        Billing_City: String!
+        Billing_State: String!
+        Billing_Zip: String!
+        Total_Cost: Decimal!
+        Discounts: Decimal!
+        Payment_Method: String!
+        Card_Num: String!
+        Card_CVV: String!
+        Card_Exp_Month: String!
+        Card_Exp_Year: String!
+        Phone_Numb: String!
+        Email: String!
     }
     input ItemInput {
+        UID: Int
         Name: String!
-        UID: String!
+        Cost: Decimal!
     }
     input TransactionItemInput {
-        TransactionID: String!
-        ItemID: String!
+        TransactionID: Int!
+        ItemID: Int!
     }
 
     # mutation responses
-    type TranscationMutationResponse {
+    type TransactionMutationResponse {
         success: Boolean!
         message: String!
         transaction: Transaction!
@@ -59,13 +85,13 @@ const typeDefs = gql`
         getAllTransactions: [Transaction]!
         getAllItems: [Item]!
         getAllTransactionsItems: [TransactionItem]!
-        getTransaction(uid: String!): Transaction
-        getItem(uid: String!): Item
+        getTransaction(uid: Int!): Transaction
+        getItem(uid: Int!): Item
         getItemWithName(name: String!): [Item]
         getLastTransaction: Transaction
     }
     type Mutation {
-        addTransaction(transaction: TransactionInput!): TranscationMutationResponse!
+        addTransaction(transaction: TransactionInput!): TransactionMutationResponse!
         addItem(item: ItemInput!): ItemMutationResponse!
         addTransactionItem(transactionItem: TransactionItemInput!): TransactionItemMutationResponse!
     }

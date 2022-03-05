@@ -13,7 +13,7 @@ const knexConfig = {
   client: "mysql",
   connection: {
     host: process.env.MYSQL_HOST,
-    port: parseInt(process.env.MYSQL_PORT),
+    port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
@@ -21,6 +21,13 @@ const knexConfig = {
 }
 
 const db = new MyDatabase(knexConfig);
+
+// const returnItems = async () => {
+//   const items = await db.getAllItems()
+//   return items
+// }
+
+// returnItems().then(items => console.log(items))
 
 async function startApolloServer(typeDefs, resolvers) {
   // Required logic for integrating with Express
