@@ -8,34 +8,26 @@ const http = require('http');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers')
 const MyDatabase = require('./db-wrapper');
-const tunnel = require('tunnel-ssh')
 
 const knexConfig = {
   client: "mysql",
   connection: {
     host: process.env.MYSQL_HOST,
-    port: parseInt(process.env.MYSQL_PORT),
+    port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
   }
 }
 
-const tunnelConfig = {
-  host:process.env.SSH_HOST,
-  port:22,
-  username:process.env.SSH_USER,
-  privateKey:require('fs').readFileSync('./app-dev-ec2-backend.pem')
-}
-
-const forwardConfig = {
-  srcHost:'localhost',
-  srcPort:3306,
-  dstHost:knexConfig.host,
-  dstPort:knexConfig.port
-}
-
 const db = new MyDatabase(knexConfig);
+
+// const returnItems = async () => {
+//   const items = await db.getAllItems()
+//   return items
+// }
+
+// returnItems().then(items => console.log(items))
 
 async function startApolloServer(typeDefs, resolvers) {
   // Required logic for integrating with Express
