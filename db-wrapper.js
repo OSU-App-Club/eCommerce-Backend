@@ -98,7 +98,7 @@ class MyDatabase extends SQLDataSource {
         try {
             await this.knex
                 .insert(item)
-                .into('Items')
+                .into('items')
             return {
                 success: true,
                 message: "Item added",
