@@ -6,7 +6,6 @@ const typeDefs = gql`
     scalar Decimal
 
     type Transaction {
-        UID: Int!
         Name: String!
         Shipping_Address: String!
         Billing_Street: String!
@@ -20,7 +19,6 @@ const typeDefs = gql`
         
     }
     type Item {
-        UID: Int!
         Name: String!
         Cost: Decimal!
     }
@@ -32,7 +30,6 @@ const typeDefs = gql`
 
     # database objects for setters
     input TransactionInput {
-        UID: Int
         Name: String!
         Shipping_Address: String!
         Billing_Street: String!
@@ -45,7 +42,6 @@ const typeDefs = gql`
         Email: String!
     }
     input ItemInput {
-        UID: Int
         Name: String!
         Cost: Decimal!
     }
