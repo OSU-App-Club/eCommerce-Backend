@@ -15,11 +15,6 @@ const typeDefs = gql`
         Billing_Zip: String!
         Total_Cost: Decimal!
         Discounts: Decimal!
-        Payment_Method: String!
-        Card_Num: String!
-        Card_CVV: String!
-        Card_Exp_Month: String!
-        Card_Exp_Year: String!
         Phone_Numb: String!
         Email: String!
         
@@ -46,11 +41,6 @@ const typeDefs = gql`
         Billing_Zip: String!
         Total_Cost: Decimal!
         Discounts: Decimal!
-        Payment_Method: String!
-        Card_Num: String!
-        Card_CVV: String!
-        Card_Exp_Month: String!
-        Card_Exp_Year: String!
         Phone_Numb: String!
         Email: String!
     }
@@ -91,7 +81,7 @@ const typeDefs = gql`
         getLastTransaction: Transaction
     }
     type Mutation {
-        addTransaction(transaction: TransactionInput!): TransactionMutationResponse!
+        addTransaction(transaction: TransactionInput!, nonce: String!): TransactionMutationResponse!
         addItem(item: ItemInput!): ItemMutationResponse!
         addTransactionItem(transactionItem: TransactionItemInput!): TransactionItemMutationResponse!
     }
